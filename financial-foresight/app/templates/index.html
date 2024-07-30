@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Foresight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Financial Foresight Application</h1>
+    <form action="/analyze" method="post">
+        <label for="symbol">Enter Company Symbol:</label>
+        <input type="text" id="symbol" name="symbol" required>
+        <button type="submit">Analyze</button>
+    </form>
+    {% if narrative %}
+    <div>
+        <h2>Financial Narrative:</h2>
+        <p>{{ narrative }}</p>
+        <h2>Projected Revenue:</h2>
+        <ul>
+            {% for year, rev in zip(years, revenue) %}
+            <li>{{ year[0] }}: ${{ '{:,.2f}'.format(rev) }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>
