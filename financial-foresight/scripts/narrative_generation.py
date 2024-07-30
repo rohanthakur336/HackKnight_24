@@ -1,4 +1,5 @@
 import spacy
+import pandas as pd
 nlp = spacy.load('en_core_web_sm')
 
 def generate_narrative(df):
@@ -17,6 +18,6 @@ def generate_narrative(df):
     return narrative
 
 if __name__ == "__main__":
-    df = pd.read_csv('data/sample_data.csv')
+    df = pd.read_csv('/Users/rohanthakur/Desktop/HackKnight_24/financial-foresight/data/sample_data.csv')
     narrative = generate_narrative(df)
     print(narrative)

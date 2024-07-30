@@ -11,6 +11,6 @@ def forecast_revenue(df, years=5):
     return future_years, future_revenue
 
 if __name__ == "__main__":
-    df = pd.read_csv('data/sample_data.csv')
+    df = pd.read_csv('/Users/rohanthakur/Desktop/HackKnight_24/financial-foresight/data/sample_data.csv')
     years, revenue = forecast_revenue(df)
     print(f'Projected Revenue for the next {len(years)} years:', revenue)
