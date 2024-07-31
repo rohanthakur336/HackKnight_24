@@ -1,29 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Foresight</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Financial Insights</title>
 </head>
 <body>
-    <h1>Financial Foresight Application</h1>
+    <h1>Financial Insights</h1>
+    
     <form action="/analyze" method="post">
         <label for="symbol">Enter Company Symbol:</label>
         <input type="text" id="symbol" name="symbol" required>
         <button type="submit">Analyze</button>
     </form>
-    {% if narrative %}
-    <div>
-        <h2>Financial Narrative:</h2>
-        <p>{{ narrative }}</p>
-        <h2>Projected Revenue:</h2>
+    
+    {% if narratives %}
+        <h2>Financial Narratives</h2>
         <ul>
-            {% for year, rev in zip(years, revenue) %}
-            <li>{{ year[0] }}: ${{ '{:,.2f}'.format(rev) }}</li>
+            {% for narrative in narratives %}
+                <li>{{ narrative }}</li>
             {% endfor %}
         </ul>
-    </div>
+    {% endif %}
+    
+    {% if forecast_data %}
+        <h2>Revenue Forecast</h2>
+        <ul>
+            {% for year, revenue in forecast_data.items() %}
+                <li>{{ year }}: ${{ revenue }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Financial Analysis</title>
+</head>
+<body>
+    <form action="/analyze" method="post">
+        <label for="symbol">Enter Company Symbol:</label>
+        <input type="text" id="symbol" name="symbol">
+        <input type="submit" value="Analyze">
+    </form>
+    
+    {% if narrative %}
+        <h2>Narrative</h2>
+        <p>{{ narrative }}</p>
+    {% endif %}
+
+    {% if years and revenue %}
+        <h2>Projected Revenue</h2>
+        <ul>
+            {% for year, rev in zip(years, revenue) %}
+                <li>Year {{ year[0] }}: ${{ "%.2f"|format(rev) }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
 </body>
 </html>
