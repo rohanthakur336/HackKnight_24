@@ -35,7 +35,7 @@
     {% endif %}
 </body>
 </html> -->
-
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,5 +61,211 @@
             {% endfor %}
         </ul>
     {% endif %}
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Financial Projection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 3rem;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .narrative, .projected-revenue {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Future Financial Projection</h1>
+        <div class="form-container">
+            <form action="/analyze" method="post" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="symbol">Enter Company Symbol:</label>
+                    <input type="text" id="symbol" name="symbol" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a company symbol.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Analyze</button>
+            </form>
+            
+            {% if narrative %}
+                <div class="narrative">
+                    <h2>Narrative</h2>
+                    <p>{{ narrative }}</p>
+                </div>
+            {% endif %}
+
+            {% if years and revenue %}
+                <div class="projected-revenue">
+                    <h2>Projected Revenue</h2>
+                    <ul class="list-group">
+                        {% for year, rev in zip(years, revenue) %}
+                            <li class="list-group-item">Year {{ year[0] }}: ${{ "%.2f"|format(rev) }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Financial Projection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 3rem;
+            overflow: hidden;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            z-index: 2;
+            position: relative;
+        }
+        .narrative, .projected-revenue {
+            margin-top: 2rem;
+        }
+        .moving-objects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .moving-object {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+            animation: move 10s linear infinite;
+        }
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(100vw);
+            }
+        }
+        .color1 { background-color: rgba(255, 0, 0, 0.5); }
+        .color2 { background-color: rgba(0, 255, 0, 0.5); }
+        .color3 { background-color: rgba(0, 0, 255, 0.5); }
+        .color4 { background-color: rgba(255, 255, 0, 0.5); }
+        .color5 { background-color: rgba(0, 255, 255, 0.5); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Future Financial Projection</h1>
+        <div class="form-container">
+            <form action="/analyze" method="post" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="symbol">Enter Company Symbol:</label>
+                    <input type="text" id="symbol" name="symbol" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a company symbol.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Analyze</button>
+            </form>
+            
+            {% if narrative %}
+                <div class="narrative">
+                    <h2>Narrative</h2>
+                    <p>{{ narrative }}</p>
+                </div>
+            {% endif %}
+
+            {% if years and revenue %}
+                <div class="projected-revenue">
+                    <h2>Projected Revenue</h2>
+                    <ul class="list-group">
+                        {% for year, rev in zip(years, revenue) %}
+                            <li class="list-group-item">Year {{ year[0] }}: ${{ "%.2f"|format(rev) }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="moving-objects">
+        <div class="moving-object color1"></div>
+        <div class="moving-object color2"></div>
+        <div class="moving-object color3"></div>
+        <div class="moving-object color4"></div>
+        <div class="moving-object color5"></div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        // Randomly position and animate moving objects
+        document.querySelectorAll('.moving-object').forEach((obj) => {
+            obj.style.top = Math.random() * 100 + 'vh';
+            obj.style.left = Math.random() * 100 + 'vw';
+            obj.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        });
+    </script>
 </body>
 </html>
